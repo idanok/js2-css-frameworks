@@ -1,51 +1,72 @@
 import { sanitize, injectMetaDescription, setupShareButton, initHeaderLinks } from './viewHelpers.js';
 
+// ------------------
 // Access check
+// ------------------
 const token = localStorage.getItem("accessToken");
 const userName = localStorage.getItem("userName");
 const postId = new URLSearchParams(window.location.search).get("id");
 
 if (!token || !userName || !postId) {
     alert("You must be logged in and have a valid post ID to view.");
-    location.href = "../account/login.html";
+    window.location.href = "../account/login.html";
 }
 
-/**
- * Fetches a single blog post by user and post ID, and populates the page content.
- *
- * @async
- * @param {string} postId - The unique ID of the post to load.
- * @param {string} userName - The username of the post author.
- * @throws Will log an error and display an error message in the DOM if the post cannot be loaded.
- */
+// ------------------
+// Load single post
+// ------------------
 async function loadPost(postId, userName) {
+    const postTitleEl = document.getElementById("postTitle");
+    const postBodyEl = document.getElementById("postBody");
+    const postImageEl = document.getElementById("postImage");
+
+    // Show loading state
+    if (postTitleEl) postTitleEl.textContent = "Loading...";
+    if (postBodyEl) postBodyEl.textContent = "";
+
     try {
         const response = await fetch(`https://v2.api.noroff.dev/blog/posts/${userName}/${postId}`);
         const { data: post } = await response.json();
 
         if (!response.ok || !post) throw new Error("Failed to load the post.");
 
-        document.getElementById("postTitle").textContent = sanitize(post.title);
-        document.getElementById("postBody").textContent = sanitize(post.body);
+        // Populate content
+        postTitleEl?.textContent = sanitize(post.title);
+        postBodyEl?.textContent = sanitize(post.body);
 
-        const img = document.getElementById("postImage");
-        img.src = sanitize(post.media?.url || "https://via.placeholder.com/800x400");
-        img.alt = sanitize(post.media?.alt || post.title);
+        if (post.media?.url) {
+            postImageEl.src = sanitize(post.media.url);
+            postImageEl.alt = sanitize(post.media.alt || post.title);
+            postImageEl.classList.remove("hidden");
+        } else {
+            postImageEl?.classList.add("hidden");
+        }
 
+        // Setup share button
         const shareUrl = `${window.location.origin}${window.location.pathname}?id=${post.id}`;
         setupShareButton(shareUrl);
 
-        injectMetaDescription(post);
+        // Inject meta description (truncated for SEO)
+        const metaDesc = post.body?.slice(0, 160) || post.title || "Blog post";
+        injectMetaDescription({ title: post.title, body: metaDesc });
 
     } catch (error) {
         console.error(error);
-        document.getElementById("postTitle").textContent = "Unable to load post.";
-        document.getElementById("postBody").textContent = "";
+        postTitleEl?.textContent = "Unable to load post.";
+        postBodyEl?.textContent = "Sorry, we couldn’t retrieve the post content.";
+        postImageEl?.classList.add("hidden");
+        alert("There was an error loading the post. Please try again later.");
     }
 }
 
+// ------------------
 // DOM ready
+// ------------------
 document.addEventListener("DOMContentLoaded", () => {
+    // Initialize header links
     initHeaderLinks();
+
+    // Load post content
     loadPost(postId, userName);
 });
+
