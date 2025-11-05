@@ -1,0 +1,28 @@
+{
+  "name": "js2-css-frameworks",
+  "version": "1.0.0",
+  "description": "A front-end web application allowing users to perform CRUD operations on posts and manage following/unfollowing users.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "build": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idanok/js2-css-frameworks.git"
+  },
+  "keywords": ["tailwindcss", "frontend", "js2"],
+  "author": "Idan Ok",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/idanok/js2-css-frameworks/issues"
+  },
+  "homepage": "https://github.com/idanok/js2-css-frameworks#readme",
+  "devDependencies": {
+    "tailwindcss": "^4.1.15",
+    "postcss": "^8.5.6",
+    "autoprefixer": "^10.4.21"
+  }
+}

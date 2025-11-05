@@ -10,35 +10,41 @@
  * @param {string} [post.media.alt] - Alt text for the post image.
  * @returns {DocumentFragment} A cloned DOM node ready to append to the post grid.
  */
-export const buildUserPostCard = post => {
-    const template = document.getElementById("postCardTemplate");
-    const clone = template.content.cloneNode(true);
+export const buildUserPostCard = (post) => {
+  const template = document.getElementById("postCardTemplate");
+  if (!template) return null;
 
-    const img = clone.querySelector("img");
-    img.src = post.media?.url || 'https://via.placeholder.com/300x200';
-    img.alt = post.media?.alt || post.title;
+  const clone = template.content.cloneNode(true);
 
-    const title = clone.querySelector("h3");
-    title.textContent = post.title;
+  const img = clone.querySelector("img");
+  img.src = post.media?.url || "https://via.placeholder.com/300x200";
+  img.alt = post.media?.alt || post.title || "Post image";
 
-    const snippet = clone.querySelector("p");
-    snippet.textContent = post.body?.slice(0, 80) + '...';
+  const title = clone.querySelector("h3");
+  title.textContent = post.title || "Untitled";
 
-    const [viewBtn, editBtn] = clone.querySelectorAll("a");
+  const snippet = clone.querySelector("p");
+  snippet.textContent = `${post.body?.slice(0, 80) || ""}...`;
 
-    viewBtn.href = `../post/view.html?id=${post.id}`;
-    viewBtn.setAttribute("aria-label", `View post titled ${post.title}`);
-    viewBtn.setAttribute("title", `View post: ${post.title}`);
+  const [viewBtn, editBtn] = clone.querySelectorAll("a");
 
-    editBtn.href = `../post/edit.html?id=${post.id}`;
-    editBtn.setAttribute("aria-label", `Edit post titled ${post.title}`);
-    editBtn.setAttribute("title", `Edit post: ${post.title}`);
+  viewBtn.href = `../post/view.html?id=${post.id}`;
+  viewBtn.setAttribute("aria-label", `View post titled ${post.title}`);
+  viewBtn.setAttribute("title", `View post: ${post.title}`);
 
-    return clone;
+  editBtn.href = `../post/edit.html?id=${post.id}`;
+  editBtn.setAttribute("aria-label", `Edit post titled ${post.title}`);
+  editBtn.setAttribute("title", `Edit post: ${post.title}`);
+
+  return clone;
 };
 
-// Show a message in the post grid when there are no posts
-export const renderEmptyState = message => {
-    const postGrid = document.getElementById("postGrid");
-    postGrid.innerHTML = `<p>${message}</p>`;
+/**
+ * Renders a message in the post grid when there are no posts
+ * @param {string} message - The message to display
+ */
+export const renderEmptyState = (message) => {
+  const postGrid = document.getElementById("postGrid");
+  if (!postGrid) return;
+  postGrid.innerHTML = `<p>${message}</p>`;
 };
