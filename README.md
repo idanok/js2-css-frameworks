@@ -33,9 +33,11 @@ git clone https://github.com/idanok/js2-css-frameworks.git
 2. Open index.html in your browser or use Live Server in VS Code
 
 ## Improvements Made
-- Improved overall styling consistency
-- Fixed contrast issues on text elements
-- Improved responsive layout on mobile screens
+Some improvements to register page: 
+- Consistent styling with the login page
+- Added error and success feedback messages
+- Added a link back to the login page
+-  Improved background and typography consistency
 
 ## License
 Created as a school assignment for Noroff Front-End Development.
