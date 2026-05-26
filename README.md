@@ -1,47 +1,41 @@
-## Social media front-end application
-A front-end web application allow users to perform CRUD operations (Create, Read, Update, and Delete) on their own posts, as well as implement additional features such as following/unfollowing users. 
+# Lifely — CSS Frameworks
 
-## What my application does:
-A front-end social media app where users can register, log in, create, edit, delete, and view posts, follow/unfollow users, search posts, and view profiles.
+A responsive front-end social media application called Lifely, built with Tailwind CSS as part of Noroff Front-End Development studies.
 
-## Why these technologies were used:
-- JavaScript (ES6 modules): For dynamic, interactive, and modular functionality.
-- HTML/CSS (Bootstrap/Tailwind optional): For page structure and responsive styling.
-- Noroff API: Handles authentication, posts, and user profiles.
-- Netlify: For easy deployment
+## Live Site
+https://velvety-gecko-f8c911.netlify.app
 
-## Challenges & future features:
-Challenges included managing authenticated requests and dynamic DOM updates. Future improvements: real-time notifications, enhanced UI/UX, and post reactions/comments.
+## GitHub Repository
+https://github.com/idanok/js2-css-frameworks
 
-## Usage:
-1. Register a new user on the Register Page.
-2. Log in on the Login Page.
-3. View all posts in the Feed Page or click posts to view individually.
-4. Create, edit, or delete your posts.
-5. Follow/unfollow other users and search posts.
-6. View your profile on the Profile Page.
-
-Authentication: Some pages require login. Use credentials created during registration.
-
+## Built With
+- HTML
+- Tailwind CSS
+- Vanilla JavaScript
+- Noroff Social API
 
 ## Features
-- Register and login users
+- User registration and login
 - View feed of all posts
-- Create, edit, delete posts
-- View individual posts and other users' posts
-- Follow/unfollow users
-- Search posts
-- View own profile
+- Create, edit and delete own posts
+- Follow and unfollow other users
+- Search posts by keyword
+- Responsive layout across all devices
 
+## Getting Started
 
-## Requirements & Notes
-- Use ES6 modules
-- At least 3 functions documented with JSDoc
-- Basic UI required
-- Deploy on GitHub Pages, Netlify, or Vercel
-- Follow Noroff’s code of conduct
+### Prerequisites
+- A stud.noroff.no email to register
 
+### Installation
+1. Clone the repository:
+git clone https://github.com/idanok/js2-css-frameworks.git
+2. Open index.html in your browser or use Live Server in VS Code
 
-## Resources:
-Noroff Social Media API
-Noroff Authentication API
+## Improvements Made
+- Improved overall styling consistency
+- Fixed contrast issues on text elements
+- Improved responsive layout on mobile screens
+
+## License
+Created as a school assignment for Noroff Front-End Development.
